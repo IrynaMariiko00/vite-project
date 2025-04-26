@@ -1,0 +1,63 @@
+@import "../../styles/main.scss";
+
+.purple-background {
+  background-color: $violet-bg-color;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+.description-wrapper {
+  @include description-wrapper;
+}
+
+.description {
+  color: $white-text-color;
+
+  @include primary-text;
+}
+
+.title {
+  margin-top: 39px;
+  margin-bottom: 7px;
+}
+
+.featuresList {
+  margin: 0;
+}
+
+.task-container {
+  @include centered-content;
+}
+
+.workspace {
+  margin: 58px 158px 102px;
+
+  &__button {
+    border-radius: 8px;
+    width: 110px;
+    height: 40px;
+    color: $gray-text-color;
+    border: none;
+    background-color: $white-bg-color;
+    box-shadow: $box-shadow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include medium-text;
+
+    @include hover-scale-btn;
+
+    &:hover {
+      color: $gray-dark-color;
+    }
+  }
+
+  &__blocks {
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+    gap: 102px 112px;
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,41 @@
+@import "../../styles/main.scss";
+
+.block {
+  height: 100px;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &__top {
+    height: 25.5px;
+    width: 100%;
+    display: flex;
+    box-shadow: 0px 1px 0px 0px $gray-light-color;
+    justify-content: space-between;
+  }
+
+  &__name {
+    color: $gray-text-color;
+    align-self: center;
+    padding-left: 18px;
+
+    @include small-text;
+  }
+
+  &__btn {
+    border: none;
+    background-color: $white-bg-color;
+
+    @include hover-icon-btn;
+  }
+
+  &__icon {
+    width: 16px;
+    height: 14px;
+  }
+}

@@ -3,16 +3,24 @@ $tablet-min-width: 640px;
 $max-width: 1600px;
 
 $white-bg-color: #FFF;
+$white-translucent-bg-color: rgba(255, 255, 255, 0.4);
+
+$box-shadow: -1px 1px 5px 0.1px rgba(0, 0, 0, 0.25);
+$box-shadow-hover: -1px 1px 5px 0.1px rgba(0, 0, 0, 0.35);
 
 $blue-text: #5F68E0;
 $gray-light-color: rgba(75, 75, 75, 0.13);
+$gray-dark-color: rgba(75, 75, 75, 1);
 $gray-text-color: #6C6D72;
 $white-text-color: $white-bg-color;
 $violet-bg-color: #967AF3;
 
 $blue-btn-color: $blue-text;
+$blue-btn-color-hover: #555cc7;
 $pink-btn-color: #DA63DA;
+$pink-btn-color-hover: #bc51bc;
+$violet-btn-color: $violet-bg-color;
+$violet-btn-color-hover: #7c63cc;
 $btn-gradient-color-hover: #696fd4;
 $blue-btn-gradient-color: #787EF0;
 $pink-btn-gradient-color: $pink-btn-color;
-$violet-btn-color: $violet-bg-color;

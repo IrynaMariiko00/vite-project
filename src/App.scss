@@ -9,7 +9,8 @@
     position: sticky;
     z-index: 2;
     top: 0;
-    background-color: $white-bg-color;
+    background-color: $white-translucent-bg-color;
+    backdrop-filter: blur(8px);
   }
 
   .app__main {

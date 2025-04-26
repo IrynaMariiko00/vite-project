@@ -30,8 +30,32 @@
     cursor: pointer;
   
     &:hover {
-      transform: scale(0.98);
+      transform: scale(0.97);
+      box-shadow: $box-shadow-hover;
     }
+  }
+
+  @mixin hover-icon-btn {
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+  
+    &:hover {
+      transform: scale(0.9);
+    }
+  }
+
+  @mixin task-2-btn {
+    height: 55px;
+    width: 164px;
+    border-radius: 8px;
+    border: none;
+    color: $white-text-color;
+    font-family: $primary-font;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   @mixin nav-link {
@@ -50,8 +74,29 @@
     margin: 0 auto;
   }
 
+  @mixin description-wrapper {
+    padding: 79px 158px 111px 158px;
+    box-sizing: border-box;
+  
+    @include centered-content;
+  }
+
   @mixin primary-text {
     font-family: $primary-font;
     font-size: 18px;
     line-height: 28px;
+    margin: 0;
+  }
+
+  @mixin medium-text {
+    font-family: $primary-font;
+    font-size: 16px;
+    line-height: 28px;
+    margin: 0;
+  }
+
+  @mixin small-text {
+    font-family: $primary-font;
+    font-size: 12px;
+    font-weight: 400;
   }

@@ -1,0 +1,37 @@
+@import "../../styles/main.scss";
+
+.start {
+  @include task-2-btn;
+
+  @include hover-scale-btn;
+
+  background-color: $blue-btn-color;
+
+  &:hover {
+    background-color: $blue-btn-color-hover;
+  }
+}
+
+.stop {
+  @include task-2-btn;
+
+  @include hover-scale-btn;
+
+  background-color: $pink-btn-color;
+
+  &:hover {
+    background-color: $pink-btn-color-hover;
+  }
+}
+
+.reset {
+  @include task-2-btn;
+
+  @include hover-scale-btn;
+
+  background-color: $violet-btn-color;
+
+  &:hover {
+    background-color: $violet-btn-color-hover;
+  }
+}

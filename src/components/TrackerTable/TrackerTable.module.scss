@@ -1,0 +1,32 @@
+@import "../../styles/main.scss";
+
+.tracker-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 650px;
+  height: 439px;
+  box-shadow: $box-shadow;
+  border-radius: 8px;
+  table-layout: fixed;
+}
+
+.tracker-table th,
+.tracker-table td {
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.13);
+  padding: 12px;
+  word-wrap: break-word;
+  word-break: break-word;
+  color: $gray-text-color;
+}
+
+.tracker-table th {
+    text-align: center;
+
+    @include medium-text;
+}
+
+.tracker-table td {
+    text-align: left;
+    
+    @include small-text;
+}

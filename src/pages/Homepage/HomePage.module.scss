@@ -1,12 +1,7 @@
 @import "../../styles/main.scss";
 
-.home-page {
-  margin-inline: 125px;
-  margin-top: 56px;
-}
-
 .wrapper {
-  @include centered-content;
+  @include description-wrapper;
 }
 
 .text {

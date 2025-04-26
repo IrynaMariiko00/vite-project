@@ -1,0 +1,25 @@
+@import "../../styles/main.scss";
+
+.main {
+    @include description-wrapper;
+}
+
+.description {
+    @include primary-text;
+
+    color: $gray-text-color;
+}
+
+.task-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 31px;
+    padding: 38px 0 38px 115px;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+}
