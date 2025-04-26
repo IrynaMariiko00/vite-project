@@ -1,0 +1,23 @@
+@import "../../styles/main.scss";
+
+.home-page {
+  margin-inline: 125px;
+  margin-top: 56px;
+}
+
+.wrapper {
+  @include centered-content;
+}
+
+.text {
+  @include primary-text;
+
+  color: $gray-text-color;
+}
+
+.btn-wrapper {
+  margin-top: 56px;
+  display: flex;
+  gap: 132px;
+  align-items: center;
+}

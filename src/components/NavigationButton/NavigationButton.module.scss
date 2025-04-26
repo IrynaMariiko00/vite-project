@@ -1,0 +1,25 @@
+@import "../../styles/main.scss";
+
+.nav-button {
+  width: 180px;
+  height: 42px;
+  background: linear-gradient(
+    90deg,
+    $blue-btn-gradient-color 0%,
+    $pink-btn-color 100%
+  );
+  text-decoration: none;
+  color: $white-text-color;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include primary-text;
+
+  @include hover-scale-btn;
+
+  &:hover {
+    background: $btn-gradient-color-hover;
+  }
+}

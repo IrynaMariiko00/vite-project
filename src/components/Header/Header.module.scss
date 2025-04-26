@@ -1,0 +1,32 @@
+@import "../../styles/main.scss";
+
+.header {
+  display: flex;
+  box-shadow: 0px 1px 0px 0px $gray-light-color;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky;
+}
+
+.wrapper {
+  @include centered-content;
+
+  display: flex;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  &__img {
+    width: 119px;
+    height: 39px;
+    padding-inline: 63px;
+    padding-block: 12px;
+
+    @include hover-scale;
+  }
+}

@@ -1,0 +1,21 @@
+@import '../../styles/main.scss';
+
+.nav {
+    &__list {
+      display: flex;
+      list-style-type: none;
+      justify-content: left;
+      gap: 64px;
+      padding-block: 11px;
+      padding-inline: 100px;
+      margin: 0;
+    }
+  
+    &__item {
+        @include hover-scale;
+    }
+
+    &__link {
+        @include nav-link;
+    }
+  }

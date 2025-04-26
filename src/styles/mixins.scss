@@ -1,0 +1,57 @@
+@mixin on-desktop {
+    @media (min-width: $desktop-min-width) {
+      @content;
+    }
+  }
+  
+  @mixin on-tablet {
+    @media (max-width: ($desktop-min-width - 1px)) {
+      @content;
+    }
+  }
+  
+  @mixin on-mobile {
+    @media (max-width: ($tablet-min-width - 1px)) {
+      @content;
+    }
+  }
+
+  @mixin hover-scale {
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  @mixin hover-scale-btn {
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+  
+    &:hover {
+      transform: scale(0.98);
+    }
+  }
+
+  @mixin nav-link {
+    font-family: $primary-font;
+    font-size: 18px;
+    font-weight: 600;
+    color: $blue-text;
+    text-decoration: none;
+  }
+
+  @mixin centered-content {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: $max-width;
+    margin: 0 auto;
+  }
+
+  @mixin primary-text {
+    font-family: $primary-font;
+    font-size: 18px;
+    line-height: 28px;
+  }
