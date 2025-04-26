@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Navigation } from "../Navigation";
 import styles from "./Header.module.scss";
 
@@ -6,13 +7,18 @@ export const Header = () => {
     <header className={styles.header}>
       <div className={styles.wrapper}>
         <div className={styles.logo}>
-          <img
-            src="/img/logo.png"
-            alt="Test task"
-            className={styles.logo__img}
-          />
+          <Link to="/">
+            <img
+              src="/img/logo.png"
+              alt="Test task"
+              className={styles.logo__img}
+            />
+          </Link>
         </div>
-        <Navigation />
+
+        <div className={styles["nav-container"]}>
+          <Navigation />
+        </div>
       </div>
     </header>
   );

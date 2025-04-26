@@ -1,11 +1,19 @@
 @import "../../styles/main.scss";
 
 .wrapper {
-  @include description-wrapper;
+  @include description-wrapper-desktop;
+
+  @include on-mobile {
+    @include description-wrapper-mobile;
+  }
 }
 
 .text {
-  @include primary-text;
+  @include primary-text-desktop;
+
+  @include on-mobile {
+    @include primary-text-mobile;
+  }
 
   color: $gray-text-color;
 }
@@ -15,4 +23,9 @@
   display: flex;
   gap: 132px;
   align-items: center;
+
+  @include on-mobile {
+    justify-content: center;
+    gap: 40px;
+  }
 }

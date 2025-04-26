@@ -1,9 +1,13 @@
 @import "../../styles/main.scss";
 
 .start {
-  @include task-2-btn;
+  @include task-2-btn-desktop;
 
   @include hover-scale-btn;
+
+  @include on-mobile {
+    @include task-2-btn-mobile;
+  }
 
   background-color: $blue-btn-color;
 
@@ -13,9 +17,13 @@
 }
 
 .stop {
-  @include task-2-btn;
+  @include task-2-btn-desktop;
 
   @include hover-scale-btn;
+
+  @include on-mobile {
+    @include task-2-btn-mobile;
+  }
 
   background-color: $pink-btn-color;
 
@@ -25,9 +33,13 @@
 }
 
 .reset {
-  @include task-2-btn;
+  @include task-2-btn-desktop;
 
   @include hover-scale-btn;
+
+  @include on-mobile {
+    @include task-2-btn-mobile;
+  }
 
   background-color: $violet-btn-color;
 

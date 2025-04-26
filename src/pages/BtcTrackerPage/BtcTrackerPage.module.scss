@@ -1,13 +1,21 @@
 @import "../../styles/main.scss";
 
 .main {
-    @include description-wrapper;
+    @include description-wrapper-desktop;
+
+    @include on-mobile {
+        @include description-wrapper-mobile;
+    }
 }
 
 .description {
-    @include primary-text;
+    @include primary-text-desktop;
 
     color: $gray-text-color;
+
+    @include on-mobile {
+        display: none;
+    }
 }
 
 .task-wrapper {
@@ -16,10 +24,22 @@
     margin-top: 31px;
     padding: 38px 0 38px 115px;
     align-items: center;
+
+    @include on-mobile {
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        gap: 18px;
+    }
 }
 
 .buttons {
     display: flex;
     flex-direction: column;
     gap: 46px;
+
+    @include on-mobile {
+        gap: 33px;
+        flex-direction: row;
+    }
 }

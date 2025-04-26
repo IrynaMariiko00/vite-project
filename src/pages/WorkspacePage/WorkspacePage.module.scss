@@ -7,13 +7,17 @@
 }
 
 .description-wrapper {
-  @include description-wrapper;
+  @include description-wrapper-desktop;
+
+  @include on-mobile {
+    display: none;
+  }
 }
 
 .description {
   color: $white-text-color;
 
-  @include primary-text;
+  @include primary-text-desktop;
 }
 
 .title {
@@ -32,6 +36,10 @@
 .workspace {
   margin: 58px 158px 102px;
 
+  @include on-mobile {
+    margin: 19px 15px;
+  }
+
   &__button {
     border-radius: 8px;
     width: 110px;
@@ -44,12 +52,19 @@
     align-items: center;
     justify-content: center;
 
-    @include medium-text;
+    @include medium-text-desktop;
 
     @include hover-scale-btn;
 
     &:hover {
       color: $gray-dark-color;
+    }
+
+    @include on-mobile {
+      width: 43px;
+      height: 17px;
+
+      @include medium-text-mobile;
     }
   }
 
@@ -59,5 +74,10 @@
     justify-content: center;
     gap: 102px 112px;
     flex-wrap: wrap;
+
+    @include on-mobile {
+      gap: 42px 32px;
+      margin-top: 19px;
+    }
   }
 }

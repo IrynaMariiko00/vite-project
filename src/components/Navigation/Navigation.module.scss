@@ -1,14 +1,19 @@
 @import '../../styles/main.scss';
 
 .nav {
+  height: 100%;
+  
     &__list {
       display: flex;
       list-style-type: none;
       justify-content: left;
       gap: 64px;
-      padding-block: 11px;
-      padding-inline: 100px;
+      padding: 11px 100px;
       margin: 0;
+
+      @include on-mobile {
+        padding: 10px 44px;
+      }
     }
   
     &__item {
@@ -16,6 +21,10 @@
     }
 
     &__link {
-        @include nav-link;
+        @include nav-link-desktop;
+
+        @include on-mobile {
+          @include nav-link-mobile;
+        }
     }
   }

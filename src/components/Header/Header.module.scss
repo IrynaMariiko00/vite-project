@@ -7,6 +7,10 @@
   justify-content: space-between;
   height: 64px;
   position: sticky;
+
+  @include on-mobile {
+    height: 32px;
+  }
 }
 
 .wrapper {
@@ -24,9 +28,20 @@
   &__img {
     width: 119px;
     height: 39px;
-    padding-inline: 63px;
-    padding-block: 12px;
+    padding: 12px 63px;
 
     @include hover-scale;
+
+    @include on-mobile {
+      width: 64px;
+      height: 18px;
+      padding: 4px 15px;
+    }
+  }
+}
+
+.nav-container {
+  @include on-mobile {
+    display: none;
   }
 }

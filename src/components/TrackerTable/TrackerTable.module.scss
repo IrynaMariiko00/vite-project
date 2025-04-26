@@ -8,6 +8,12 @@
   box-shadow: $box-shadow;
   border-radius: 8px;
   table-layout: fixed;
+
+  @include on-mobile {
+    width: 239px;
+    height: 175px;
+    border-radius: 4px;
+  }
 }
 
 .tracker-table th,
@@ -22,11 +28,15 @@
 .tracker-table th {
     text-align: center;
 
-    @include medium-text;
+    @include medium-text-desktop;
+
+    @include on-mobile {
+        @include medium-text-mobile;
+    }
 }
 
 .tracker-table td {
     text-align: left;
     
-    @include small-text;
+    @include small-text-desktop;
 }

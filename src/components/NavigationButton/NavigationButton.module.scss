@@ -15,11 +15,18 @@
   align-items: center;
   justify-content: center;
 
-  @include primary-text;
+  @include primary-text-desktop;
 
   @include hover-scale-btn;
 
   &:hover {
     background: $btn-gradient-color-hover;
+  }
+
+  @include on-mobile {
+    width: 105px;
+    height: 21px;
+
+    @include primary-text-mobile;
   }
 }
