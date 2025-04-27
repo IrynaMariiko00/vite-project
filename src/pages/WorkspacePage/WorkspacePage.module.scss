@@ -74,6 +74,8 @@
     justify-content: center;
     gap: 102px 112px;
     flex-wrap: wrap;
+    position: relative;
+    min-height: 400px;
 
     @include on-mobile {
       gap: 42px 32px;

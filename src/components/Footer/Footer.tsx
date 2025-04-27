@@ -31,7 +31,7 @@ export const Footer = () => {
           <>
             <div className={styles.author}>
               <img
-                src="/img/author.png"
+                src="public/img/author.png"
                 alt="Made by Iryna"
                 className={styles.author__img}
               />

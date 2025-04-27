@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { App } from "./App";
 import { HomePage } from "./pages/Homepage/HomePage";
 import { WorkspacePage } from "./pages/WorkspacePage/WorkspacePage";
@@ -7,7 +7,7 @@ import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 
 export const Root = () => {
   return (
-    <Router>
+    <Router basename="/vite-project">
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />

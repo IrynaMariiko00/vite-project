@@ -5,16 +5,10 @@
   width: 300px;
   border-radius: 8px;
   box-shadow: $box-shadow;
-  cursor: grab; 
+  cursor: grab;
 
   &:active {
     cursor: grabbing;
-  }
-
-  @include on-mobile {
-    height: 66px;
-    width: 123px;
-    border-radius: 4px;
   }
 
   &__top {
@@ -24,10 +18,6 @@
     box-shadow: 0px 1px 0px 0px $gray-light-color;
     justify-content: space-between;
     align-items: center;
-
-    @include on-mobile {
-        height: 14px;
-    }
   }
 
   &__name {
@@ -38,9 +28,9 @@
     @include small-text-desktop;
 
     @include on-mobile {
-        @include small-text-mobile;
+      @include small-text-mobile;
 
-        padding-left: 9px;
+      padding-left: 9px;
     }
   }
 
@@ -51,10 +41,10 @@
     @include hover-icon-btn;
 
     @include on-mobile {
-        padding: 0;
-        align-items: center;
-        display: flex;
-        margin: 4px;
+      padding: 0;
+      align-items: center;
+      display: flex;
+      margin: 4px;
     }
   }
 
@@ -63,8 +53,8 @@
     height: 14px;
 
     @include on-mobile {
-        width: 6px;
-        height: 5px;
+      width: 6px;
+      height: 5px;
     }
   }
 }
