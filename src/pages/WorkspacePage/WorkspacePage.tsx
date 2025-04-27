@@ -1,16 +1,9 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styles from "./WorkspacePage.module.scss";
 import { Block } from "./components/Block";
 import { Features2 } from "./components/Features-task-2";
 import { resetBlocksPositions } from "../../utils/resetBlocksPositions";
-
-const initialBlocks = [
-  { number: 1, index: 1, position: { x: 0, y: 0 } },
-  { number: 2, index: 2, position: { x: 412, y: 0 } },
-  { number: 3, index: 3, position: { x: 824, y: 0 } },
-  { number: 4, index: 4, position: { x: 210, y: 189 } },
-  { number: 5, index: 5, position: { x: 622, y: 189 } },
-];
+import { initialBlocks } from "../../constants/initialBlocks";
 
 export const WorkspacePage = () => {
   const [blocks, setBlocks] = useState(initialBlocks);
@@ -33,8 +26,14 @@ export const WorkspacePage = () => {
   };
 
   const handleReset = () => {
-    resetBlocksPositions(setBlocks);
+    resetBlocksPositions(setBlocks, blocks);
   };
+
+  const handleBlockClose = useCallback((blockNumber: number) => {
+    setBlocks((prevBlocks) =>
+      prevBlocks.filter((block) => block.number !== blockNumber),
+    );
+  }, []);
 
   return (
     <main>
@@ -66,6 +65,7 @@ export const WorkspacePage = () => {
                 position={block.position}
                 onBlockClick={handleBlockClick}
                 updateBlockIndex={updateBlockIndexes}
+                onBlockClose={handleBlockClose}
               />
             ))}
           </div>
