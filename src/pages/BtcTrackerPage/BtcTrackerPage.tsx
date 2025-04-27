@@ -1,7 +1,7 @@
 import styles from "./BtcTrackerPage.module.scss";
 import { features } from "../../constants/task-2-features";
-import { TrackerButton } from "../../components/TrackerButton";
-import { TrackerTable } from "../../components/TrackerTable";
+import { TrackerButton } from "./components/TrackerButton";
+import { TrackerTable } from "./components/TrackerTable";
 
 export const BtcTrackerPage = () => {
   return (

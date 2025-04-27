@@ -1,7 +1,8 @@
-@import "../../styles/main.scss";
+@import "../../../../styles/main.scss";
 
 .block {
   height: 100px;
+  background-color: $white-bg-color;
   width: 300px;
   border-radius: 8px;
   box-shadow: $box-shadow;

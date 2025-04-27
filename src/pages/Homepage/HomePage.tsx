@@ -1,6 +1,6 @@
 import styles from "./HomePage.module.scss";
 import { tasks } from "../../constants/task-instruction-1";
-import { NavigationButton } from "../../components/NavigationButton/NavigationButton";
+import { NavigationButton } from "./components/NavigationButton/NavigationButton";
 
 export const HomePage = () => {
   return (

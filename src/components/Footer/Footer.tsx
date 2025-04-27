@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
 import styles from "./Footer.module.scss";
-import { Navigation } from "../Navigation";
+import { Navigation } from "../Header/components/Navigation";
 
 export const Footer = () => {
   const [isMobile, setIsMobile] = useState(false);
 
-  // Хук для перевірки ширини екрану
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 640);
     };
 
-    // Встановлюємо початковий розмір
     handleResize();
 
-    // Додаємо слухач для зміни розміру вікна
     window.addEventListener("resize", handleResize);
 
-    // Очищаємо слухач при розмонтажі компоненти
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -26,7 +22,6 @@ export const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.wrapper}>
-        {/* Відображаємо лише на десктопах */}
         {!isMobile && (
           <>
             <div className={styles.author}>
@@ -50,7 +45,6 @@ export const Footer = () => {
           </>
         )}
 
-        {/* Для мобільних відображається лише навігація */}
         {isMobile && <Navigation />}
       </div>
     </footer>

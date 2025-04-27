@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/vite-project/", // Встановіть базовий шлях
+  base: "/vite-project/",
 });

@@ -1,0 +1,11 @@
+@import "../../../../styles/main.scss";
+
+.featuresList {
+  margin: 0;
+}
+
+.description {
+  color: $white-text-color;
+
+  @include primary-text-desktop;
+}
