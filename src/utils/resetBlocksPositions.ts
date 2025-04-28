@@ -1,17 +1,14 @@
+import { initialBlocks } from "../constants/initialBlocks";
+import { BlockType } from "../types/block";
+
 type BlockPosition = {
   x: number;
   y: number;
 };
 
-type Block = {
-  number: number;
-  index: number;
-  position: BlockPosition;
-};
-
 export const resetBlocksPositions = (
-  setBlocks: React.Dispatch<React.SetStateAction<Block[]>>,
-  currentBlocks: Block[],
+  setBlocks: React.Dispatch<React.SetStateAction<BlockType[]>>,
+  currentBlocks: BlockType[],
 ) => {
   const initialPositions: BlockPosition[] = [
     { x: 0, y: 0 },
@@ -19,14 +16,6 @@ export const resetBlocksPositions = (
     { x: 824, y: 0 },
     { x: 210, y: 189 },
     { x: 622, y: 189 },
-  ];
-
-  const initialBlocks = [
-    { number: 1, index: 1 },
-    { number: 2, index: 2 },
-    { number: 3, index: 3 },
-    { number: 4, index: 4 },
-    { number: 5, index: 5 },
   ];
 
   // Створюємо список номерів існуючих блоків
@@ -44,15 +33,14 @@ export const resetBlocksPositions = (
       number: block.number,
       index: block.index,
       position: initialPosition,
+      onBlockClick: () => {},
+      updateBlockIndex: () => {},
+      onBlockClose: () => {},
     };
   });
 
-  // Оновлюємо стан блоків: повертаємо існуючі і додаємо відсутні
   setBlocks((prevBlocks) => {
-    const updatedBlocks = [
-      ...prevBlocks,
-      ...blocksToAdd, // додаємо відсутні блоки
-    ].map((block) => {
+    const updatedBlocks = [...prevBlocks, ...blocksToAdd].map((block) => {
       const initialPosition = initialPositions[block.number - 1];
       return {
         ...block,
@@ -60,7 +48,6 @@ export const resetBlocksPositions = (
       };
     });
 
-    // Сортуємо блоки за номером
     return updatedBlocks.sort((a, b) => a.number - b.number);
   });
 };

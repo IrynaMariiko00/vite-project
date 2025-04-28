@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./Block.module.scss";
 import { BlockType } from "../../../../types/block";
+import { useResize } from "../../../../hooks/useResize";
 
 export const Block: React.FC<BlockType> = ({
   number,
@@ -12,27 +13,36 @@ export const Block: React.FC<BlockType> = ({
 }) => {
   const blockRef = useRef<HTMLDivElement>(null);
   const [blockPosition, setBlockPosition] = useState(position);
-  const isDragging = useRef(false);
-  const wasMoved = useRef(false); // нове
-  const startCoords = useRef({ x: 0, y: 0 });
-  const step = 10;
+
+  // Використовуємо useResize для управління розмірами
+  const { dimensions, resizeRef, handleMouseDown } = useResize(300, 100);
+
+  const state = useRef({
+    isDragging: false,
+    wasMoved: false,
+    startCoords: { x: 0, y: 0 },
+    step: 10,
+  });
 
   useEffect(() => {
     setBlockPosition(position);
   }, [position]);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).closest("button")) {
+  const handleMouseDownMove = (e: React.MouseEvent) => {
+    if (
+      (e.target as HTMLElement).closest(".resizeHandle") ||
+      (e.target as HTMLElement).closest("button")
+    ) {
       return;
     }
 
     e.preventDefault();
-    isDragging.current = true;
-    wasMoved.current = false;
+    state.current.isDragging = true;
+    state.current.wasMoved = false;
 
     updateBlockIndex(number);
 
-    startCoords.current = {
+    state.current.startCoords = {
       x: e.clientX - blockPosition.x,
       y: e.clientY - blockPosition.y,
     };
@@ -43,16 +53,18 @@ export const Block: React.FC<BlockType> = ({
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
-      if (!isDragging.current) return;
+      if (!state.current.isDragging) return;
 
-      const newX = e.clientX - startCoords.current.x;
-      const newY = e.clientY - startCoords.current.y;
+      const newX = e.clientX - state.current.startCoords.x;
+      const newY = e.clientY - state.current.startCoords.y;
 
-      const snappedX = Math.round(newX / step) * step;
-      const snappedY = Math.round(newY / step) * step;
+      const snappedX =
+        Math.round(newX / state.current.step) * state.current.step;
+      const snappedY =
+        Math.round(newY / state.current.step) * state.current.step;
 
       if (snappedX !== blockPosition.x || snappedY !== blockPosition.y) {
-        wasMoved.current = true;
+        state.current.wasMoved = true;
       }
 
       setBlockPosition({ x: snappedX, y: snappedY });
@@ -61,13 +73,13 @@ export const Block: React.FC<BlockType> = ({
   );
 
   const handleMouseUp = useCallback(() => {
-    isDragging.current = false;
+    state.current.isDragging = false;
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
   }, [handleMouseMove]);
 
   const handleClick = (e: React.MouseEvent) => {
-    if (wasMoved.current) {
+    if (state.current.wasMoved) {
       e.stopPropagation();
       return;
     }
@@ -87,9 +99,11 @@ export const Block: React.FC<BlockType> = ({
         position: "absolute",
         top: `${blockPosition.y}px`,
         left: `${blockPosition.x}px`,
+        width: `${dimensions.width}px`, // Використовуємо dimensions з хука useResize
+        height: `${dimensions.height}px`, // Використовуємо dimensions з хука useResize
         zIndex: index,
       }}
-      onMouseDown={handleMouseDown}
+      onMouseDown={handleMouseDownMove}
       onClick={handleClick}
     >
       <div className={styles.block__top}>
@@ -102,6 +116,15 @@ export const Block: React.FC<BlockType> = ({
           />
         </button>
       </div>
+
+      <div
+        className={styles.resizeHandle}
+        onMouseDown={(e) => {
+          e.stopPropagation();
+          handleMouseDown(e);
+        }}
+        ref={resizeRef}
+      ></div>
     </div>
   );
 };

@@ -58,25 +58,15 @@
       height: 5px;
     }
   }
-}
 
-.block__resize {
-  position: absolute;
-  background-color: #333;
-  z-index: 1000;
-  border: 4px solid transparent;
-}
-
-.resize-right {
-  width: 10px;
-  height: 100%;
-  right: -5px;
-  cursor: ew-resize;
-}
-
-.resize-bottom {
-  width: 100%;
-  height: 10px;
-  bottom: -5px;
-  cursor: ns-resize;
+  .resizeHandle {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    cursor: se-resize;
+    border-radius: 50%;
+  }
 }

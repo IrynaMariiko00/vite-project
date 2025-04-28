@@ -4,9 +4,10 @@ import { Block } from "./components/Block";
 import { Features2 } from "./components/Features-task-2";
 import { resetBlocksPositions } from "../../utils/resetBlocksPositions";
 import { initialBlocks } from "../../constants/initialBlocks";
+import { BlockType } from "../../types/block";
 
 export const WorkspacePage = () => {
-  const [blocks, setBlocks] = useState(initialBlocks);
+  const [blocks, setBlocks] = useState<BlockType[]>(initialBlocks);
 
   const updateBlockIndexes = (clickedBlockNumber: number) => {
     setBlocks((prevBlocks) => {
