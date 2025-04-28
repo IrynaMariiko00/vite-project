@@ -11,6 +11,7 @@ export const Block: React.FC<BlockType> = ({
   onBlockClick,
   updateBlockIndex,
   onBlockClose,
+  updateBlockPositionAndSize,
 }) => {
   const blockRef = useRef<HTMLDivElement>(null);
   const [blockPosition, setBlockPosition] = useState(position);
@@ -85,7 +86,20 @@ export const Block: React.FC<BlockType> = ({
     state.current.isDragging = false;
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
-  }, [handleMouseMove]);
+
+    // Додаємо збереження після закінчення перетягування
+    updateBlockPositionAndSize(number, blockPosition, dimensions);
+  }, [
+    handleMouseMove,
+    blockPosition,
+    dimensions,
+    number,
+    updateBlockPositionAndSize,
+  ]);
+
+  useEffect(() => {
+    updateBlockPositionAndSize(number, blockPosition, dimensions);
+  }, [dimensions]);
 
   const handleClick = (e: React.MouseEvent) => {
     if (state.current.wasMoved) {

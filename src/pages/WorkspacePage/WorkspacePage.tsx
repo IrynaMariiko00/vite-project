@@ -1,47 +1,17 @@
-import { useCallback, useState } from "react";
-import styles from "./WorkspacePage.module.scss";
 import { Block } from "./components/Block";
 import { Features2 } from "./components/Features-task-2";
-import { resetBlocksPositions } from "../../utils/resetBlocksPositions";
-import { initialBlocks } from "../../constants/initialBlocks";
-import { BlockType } from "../../types/block";
+import { useBlocks } from "../../hooks/useBlocks";
+import styles from "./WorkspacePage.module.scss";
 
-export const WorkspacePage = () => {
-  const [blocks, setBlocks] = useState<BlockType[]>(initialBlocks);
-
-  const updateBlockIndexes = (clickedBlockNumber: number) => {
-    setBlocks((prevBlocks) => {
-      const updatedBlocks = prevBlocks.map((block) => {
-        if (block.number === clickedBlockNumber) {
-          return { ...block, index: 5 };
-        }
-        return { ...block, index: Math.max(1, block.index - 1) };
-      });
-
-      return updatedBlocks.sort((a, b) => a.index - b.index);
-    });
-  };
-
-  const handleBlockClick = (clickedBlockNumber: number) => {
-    updateBlockIndexes(clickedBlockNumber);
-  };
-
-  const handleReset = () => {
-    resetBlocksPositions(setBlocks, blocks);
-
-    setBlocks((prevBlocks) =>
-      prevBlocks.map((block) => {
-        block.initialDimensions = { width: 300, height: 100 };
-        return block;
-      }),
-    );
-  };
-
-  const handleBlockClose = useCallback((blockNumber: number) => {
-    setBlocks((prevBlocks) =>
-      prevBlocks.filter((block) => block.number !== blockNumber),
-    );
-  }, []);
+const WorkspacePage = () => {
+  const {
+    blocks,
+    handleBlockClick,
+    handleReset,
+    handleBlockClose,
+    updateBlockIndexes,
+    updateBlockPositionAndSize,
+  } = useBlocks();
 
   return (
     <main>
@@ -73,8 +43,9 @@ export const WorkspacePage = () => {
                 position={block.position}
                 initialDimensions={block.initialDimensions}
                 onBlockClick={handleBlockClick}
-                updateBlockIndex={updateBlockIndexes}
                 onBlockClose={handleBlockClose}
+                updateBlockPositionAndSize={updateBlockPositionAndSize}
+                updateBlockIndex={updateBlockIndexes}
               />
             ))}
           </div>
@@ -83,3 +54,5 @@ export const WorkspacePage = () => {
     </main>
   );
 };
+
+export default WorkspacePage;

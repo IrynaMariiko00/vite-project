@@ -3,7 +3,7 @@ import { features } from "../../constants/task-2-features";
 import { TrackerButton } from "./components/TrackerButton";
 import { TrackerTable } from "./components/TrackerTable";
 
-export const BtcTrackerPage = () => {
+const BtcTrackerPage = () => {
   return (
     <main className={styles.main}>
       <section className={styles["description-wrapper"]}>
@@ -35,3 +35,5 @@ export const BtcTrackerPage = () => {
     </main>
   );
 };
+
+export default BtcTrackerPage;

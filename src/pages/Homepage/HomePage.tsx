@@ -2,7 +2,7 @@ import styles from "./HomePage.module.scss";
 import { tasks } from "../../constants/task-instruction-1";
 import { NavigationButton } from "./components/NavigationButton/NavigationButton";
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <main className={styles["home-page"]}>
       <section className={styles.wrapper}>
@@ -32,3 +32,5 @@ export const HomePage = () => {
     </main>
   );
 };
+
+export default HomePage;

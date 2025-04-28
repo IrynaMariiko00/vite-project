@@ -65,13 +65,16 @@
   }
 
   &__blocks {
+    border-radius: 8px;
+    box-shadow: $box-shadow;
     margin-top: 48px;
     display: flex;
-    justify-content: center;
+    width: 100%;
     gap: 102px 112px;
     flex-wrap: wrap;
     position: relative;
     min-height: 400px;
+    overflow: hidden;
 
     @include on-mobile {
       gap: 42px 32px;

@@ -37,6 +37,7 @@ export const resetBlocksPositions = (
       onBlockClick: () => {},
       updateBlockIndex: () => {},
       onBlockClose: () => {},
+      updateBlockPositionAndSize: () => {},
     };
   });
 
