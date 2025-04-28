@@ -4,14 +4,7 @@ import { BlocksProvider, useBlocks } from "../../hooks/useBlocks";
 import styles from "./WorkspacePage.module.scss";
 
 const WorkspacePage = () => {
-  const {
-    blocks,
-    handleBlockClick,
-    handleReset,
-    handleBlockClose,
-    updateBlockIndexes,
-    updateBlockPositionAndSize,
-  } = useBlocks();
+  const { blocks } = useBlocks();
 
   return (
     <main>
@@ -30,22 +23,15 @@ const WorkspacePage = () => {
 
       <section className={styles["task-container"]}>
         <div className={styles.workspace}>
-          <button className={styles.workspace__button} onClick={handleReset}>
-            Reset
-          </button>
+          <button className={styles.workspace__button}>Reset</button>
 
           <div className={styles.workspace__blocks}>
             {blocks.map((block) => (
               <Block
-                key={block.number}
-                number={block.number}
-                index={block.index}
-                position={block.position}
-                initialDimensions={block.initialDimensions}
-                onBlockClick={handleBlockClick}
-                onBlockClose={handleBlockClose}
-                updateBlockPositionAndSize={updateBlockPositionAndSize}
-                updateBlockIndex={updateBlockIndexes}
+                key={block.id}
+                id={block.id}
+                top={block.top}
+                left={block.left}
               />
             ))}
           </div>

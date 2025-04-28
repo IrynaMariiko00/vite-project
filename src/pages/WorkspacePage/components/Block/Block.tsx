@@ -1,137 +1,39 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useRef, useState } from "react";
 import styles from "./Block.module.scss";
-import { BlockType } from "../../../../types/block";
-import { useResize } from "../../../../hooks/useResize";
+import { BlockType } from "../../../../types/block-type";
+import { handleMouseDown } from "../../../../utils/dragBlock";
+import { useBlocks } from "../../../../hooks/useBlocks";
+import { updateBlocksAfterDrag } from "../../../../utils/updateBlocksAfterDrag";
 
-export const Block: React.FC<BlockType> = ({
-  number,
-  index,
-  position,
-  initialDimensions, // отримаємо початкові розміри тут
-  onBlockClick,
-  updateBlockIndex,
-  onBlockClose,
-  updateBlockPositionAndSize,
-}) => {
+export const Block: React.FC<BlockType> = ({ id, top, left }) => {
   const blockRef = useRef<HTMLDivElement>(null);
-  const [blockPosition, setBlockPosition] = useState(position);
-  const [dimensions, setDimensions] = useState(initialDimensions); // Локальний стан для зберігання розмірів
+  const [position, setPosition] = useState({ topPos: top, leftPos: left });
+  const { blocks, setBlocks, deleteBlock } = useBlocks();
 
-  const { resizeRef, handleMouseDown } = useResize(
-    dimensions.width,
-    dimensions.height,
-    setDimensions, // передаємо setDimensions, щоб оновлювати локальний стан розмірів
-  );
-
-  const state = useRef({
-    isDragging: false,
-    wasMoved: false,
-    startCoords: { x: 0, y: 0 },
-    step: 10,
-  });
-
-  useEffect(() => {
-    setBlockPosition(position);
-  }, [position]);
-
-  useEffect(() => {
-    setDimensions(initialDimensions); // Оновлення локальних розмірів при скиданні
-  }, [initialDimensions]);
-
-  const handleMouseDownMove = (e: React.MouseEvent) => {
-    if (
-      (e.target as HTMLElement).closest(".resizeHandle") ||
-      (e.target as HTMLElement).closest("button")
-    ) {
-      return;
-    }
-
-    e.preventDefault();
-    state.current.isDragging = true;
-    state.current.wasMoved = false;
-
-    updateBlockIndex(number);
-
-    state.current.startCoords = {
-      x: e.clientX - blockPosition.x,
-      y: e.clientY - blockPosition.y,
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
+  const handleDragEnd = () => {
+    setBlocks((prevBlocks) => updateBlocksAfterDrag(prevBlocks, id));
   };
 
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (!state.current.isDragging) return;
-
-      const newX = e.clientX - state.current.startCoords.x;
-      const newY = e.clientY - state.current.startCoords.y;
-
-      const snappedX =
-        Math.round(newX / state.current.step) * state.current.step;
-      const snappedY =
-        Math.round(newY / state.current.step) * state.current.step;
-
-      if (snappedX !== blockPosition.x || snappedY !== blockPosition.y) {
-        state.current.wasMoved = true;
-      }
-
-      setBlockPosition({ x: snappedX, y: snappedY });
-    },
-    [blockPosition],
-  );
-
-  const handleMouseUp = useCallback(() => {
-    state.current.isDragging = false;
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
-
-    // Додаємо збереження після закінчення перетягування
-    updateBlockPositionAndSize(number, blockPosition, dimensions);
-  }, [
-    handleMouseMove,
-    blockPosition,
-    dimensions,
-    number,
-    updateBlockPositionAndSize,
-  ]);
-
-  useEffect(() => {
-    updateBlockPositionAndSize(number, blockPosition, dimensions);
-  }, [dimensions]);
-
-  const handleClick = (e: React.MouseEvent) => {
-    if (state.current.wasMoved) {
-      e.stopPropagation();
-      return;
-    }
-    onBlockClick(number);
-  };
-
-  const handleClose = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onBlockClose(number);
+  const handleDelete = () => {
+    deleteBlock(id);
   };
 
   return (
     <div
       ref={blockRef}
+      onMouseDown={(e) =>
+        handleMouseDown(e, blockRef, setPosition, handleDragEnd)
+      }
       className={styles.block}
       style={{
-        position: "absolute",
-        top: `${blockPosition.y}px`,
-        left: `${blockPosition.x}px`,
-        width: `${dimensions.width}px`, // використовуємо локальний стан dimensions
-        height: `${dimensions.height}px`, // використовуємо локальний стан dimensions
-        zIndex: index,
+        top: `${position.topPos}px`,
+        left: `${position.leftPos}px`,
+        zIndex: blocks.find((b) => b.id === id)?.zIndex ?? 1,
       }}
-      onMouseDown={handleMouseDownMove}
-      onClick={handleClick}
     >
       <div className={styles.block__top}>
-        <h2 className={styles.block__name}>Block {number}</h2>
-        <button className={styles.block__btn} onClick={handleClose}>
+        <h2 className={styles.block__name}>Block {id}</h2>
+        <button className={styles.block__btn} onClick={handleDelete}>
           <img
             src="public/img/close.png"
             alt="close"
@@ -140,14 +42,7 @@ export const Block: React.FC<BlockType> = ({
         </button>
       </div>
 
-      <div
-        className={styles.resizeHandle}
-        onMouseDown={(e) => {
-          e.stopPropagation();
-          handleMouseDown(e);
-        }}
-        ref={resizeRef}
-      ></div>
+      <div className={styles.resizeHandle}></div>
     </div>
   );
 };

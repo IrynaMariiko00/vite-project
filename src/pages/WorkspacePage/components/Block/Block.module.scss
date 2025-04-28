@@ -9,11 +9,8 @@
   margin-left: 10px;
   box-shadow: $box-shadow;
   cursor: grab;
-
-  &:active {
-    cursor: grabbing;
-  }
-
+  position: absolute;
+  
   &__top {
     height: 25.5px;
     width: 100%;
