@@ -6,6 +6,7 @@ import { TrackerProvider, useTracker } from "../../hooks/useTracker";
 
 const BtcTrackerPage = () => {
   const { onStart, onStop, onReset, totalSum } = useTracker();
+
   return (
     <main className={styles.main}>
       <section className={styles["description-wrapper"]}>
@@ -32,8 +33,16 @@ const BtcTrackerPage = () => {
           <TrackerButton text="Reset" variant="reset" onClick={onReset} />
         </div>
 
-        <div>Sum = {totalSum} BTC</div>
-        <TrackerTable />
+        <div className={styles["table-wrapper"]}>
+          <div
+            className={styles.text}
+            style={{ visibility: totalSum > 0 ? "visible" : "hidden" }}
+          >
+            Sum = {totalSum} BTC
+          </div>
+
+          <TrackerTable />
+        </div>
       </section>
     </main>
   );

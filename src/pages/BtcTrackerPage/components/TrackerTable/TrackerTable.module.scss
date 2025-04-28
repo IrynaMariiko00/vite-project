@@ -1,10 +1,19 @@
 @import "../../../../styles/main.scss";
 
-.tracker-table {
-  border-collapse: separate;
-  border-spacing: 0;
+.tracker-table-wrapper {
   width: 650px;
   height: 439px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+}
+
+.tracker-table {
+  width: 650px;
+  height: 439px;
+  border-collapse: separate;
+  border-spacing: 0;
   box-shadow: $box-shadow;
   border-radius: 8px;
   table-layout: fixed;
@@ -26,17 +35,19 @@
 }
 
 .tracker-table th {
-    text-align: center;
+  @include medium-text-desktop;
 
-    @include medium-text-desktop;
-
-    @include on-mobile {
-        @include medium-text-mobile;
-    }
+  @include on-mobile {
+    @include medium-text-mobile;
+  }
 }
 
 .tracker-table td {
-    text-align: left;
-    
-    @include small-text-desktop;
+  text-align: left;
+
+  @include small-text-desktop;
+}
+
+.text {
+  @include primary-text-desktop;
 }

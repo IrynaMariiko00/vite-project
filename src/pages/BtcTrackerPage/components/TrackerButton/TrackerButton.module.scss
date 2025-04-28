@@ -10,6 +10,7 @@
   }
 
   background-color: $blue-btn-color;
+  display: inline-block;
 
   &:hover {
     background-color: $blue-btn-color-hover;
@@ -26,6 +27,7 @@
   }
 
   background-color: $pink-btn-color;
+  display: inline-block;
 
   &:hover {
     background-color: $pink-btn-color-hover;
@@ -42,8 +44,14 @@
   }
 
   background-color: $violet-btn-color;
+  display: inline-block;
 
   &:hover {
     background-color: $violet-btn-color-hover;
   }
+}
+
+.disabled {
+  opacity: 0.7;
+  pointer-events: none;
 }
