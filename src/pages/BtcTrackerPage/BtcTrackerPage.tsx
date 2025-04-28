@@ -2,8 +2,10 @@ import styles from "./BtcTrackerPage.module.scss";
 import { features } from "../../constants/task-2-features";
 import { TrackerButton } from "./components/TrackerButton";
 import { TrackerTable } from "./components/TrackerTable";
+import { TrackerProvider, useTracker } from "../../hooks/useTracker";
 
 const BtcTrackerPage = () => {
+  const { onStart, onStop, onReset, totalSum } = useTracker();
   return (
     <main className={styles.main}>
       <section className={styles["description-wrapper"]}>
@@ -25,15 +27,20 @@ const BtcTrackerPage = () => {
 
       <section className={styles["task-wrapper"]}>
         <div className={styles.buttons}>
-          <TrackerButton text="Start" variant="start" />
-          <TrackerButton text="Stop" variant="stop" />
-          <TrackerButton text="Reset" variant="reset" />
+          <TrackerButton text="Start" variant="start" onClick={onStart} />
+          <TrackerButton text="Stop" variant="stop" onClick={onStop} />
+          <TrackerButton text="Reset" variant="reset" onClick={onReset} />
         </div>
 
+        <div>Sum = {totalSum} BTC</div>
         <TrackerTable />
       </section>
     </main>
   );
 };
 
-export default BtcTrackerPage;
+export default () => (
+  <TrackerProvider>
+    <BtcTrackerPage />
+  </TrackerProvider>
+);

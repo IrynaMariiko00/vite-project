@@ -1,6 +1,6 @@
 import { Block } from "./components/Block";
 import { Features2 } from "./components/Features-task-2";
-import { useBlocks } from "../../hooks/useBlocks";
+import { BlocksProvider, useBlocks } from "../../hooks/useBlocks";
 import styles from "./WorkspacePage.module.scss";
 
 const WorkspacePage = () => {
@@ -55,4 +55,8 @@ const WorkspacePage = () => {
   );
 };
 
-export default WorkspacePage;
+export default () => (
+  <BlocksProvider>
+    <WorkspacePage />
+  </BlocksProvider>
+);
