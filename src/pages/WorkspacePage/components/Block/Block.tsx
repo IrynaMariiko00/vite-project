@@ -7,15 +7,20 @@ export const Block: React.FC<BlockType> = ({
   number,
   index,
   position,
+  initialDimensions, // отримаємо початкові розміри тут
   onBlockClick,
   updateBlockIndex,
   onBlockClose,
 }) => {
   const blockRef = useRef<HTMLDivElement>(null);
   const [blockPosition, setBlockPosition] = useState(position);
+  const [dimensions, setDimensions] = useState(initialDimensions); // Локальний стан для зберігання розмірів
 
-  // Використовуємо useResize для управління розмірами
-  const { dimensions, resizeRef, handleMouseDown } = useResize(300, 100);
+  const { resizeRef, handleMouseDown } = useResize(
+    dimensions.width,
+    dimensions.height,
+    setDimensions, // передаємо setDimensions, щоб оновлювати локальний стан розмірів
+  );
 
   const state = useRef({
     isDragging: false,
@@ -27,6 +32,10 @@ export const Block: React.FC<BlockType> = ({
   useEffect(() => {
     setBlockPosition(position);
   }, [position]);
+
+  useEffect(() => {
+    setDimensions(initialDimensions); // Оновлення локальних розмірів при скиданні
+  }, [initialDimensions]);
 
   const handleMouseDownMove = (e: React.MouseEvent) => {
     if (
@@ -99,8 +108,8 @@ export const Block: React.FC<BlockType> = ({
         position: "absolute",
         top: `${blockPosition.y}px`,
         left: `${blockPosition.x}px`,
-        width: `${dimensions.width}px`, // Використовуємо dimensions з хука useResize
-        height: `${dimensions.height}px`, // Використовуємо dimensions з хука useResize
+        width: `${dimensions.width}px`, // використовуємо локальний стан dimensions
+        height: `${dimensions.height}px`, // використовуємо локальний стан dimensions
         zIndex: index,
       }}
       onMouseDown={handleMouseDownMove}

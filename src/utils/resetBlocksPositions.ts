@@ -33,6 +33,7 @@ export const resetBlocksPositions = (
       number: block.number,
       index: block.index,
       position: initialPosition,
+      initialDimensions: { width: 300, height: 100 },
       onBlockClick: () => {},
       updateBlockIndex: () => {},
       onBlockClose: () => {},

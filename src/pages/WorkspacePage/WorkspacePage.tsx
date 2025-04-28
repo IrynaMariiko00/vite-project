@@ -28,6 +28,13 @@ export const WorkspacePage = () => {
 
   const handleReset = () => {
     resetBlocksPositions(setBlocks, blocks);
+
+    setBlocks((prevBlocks) =>
+      prevBlocks.map((block) => {
+        block.initialDimensions = { width: 300, height: 100 };
+        return block;
+      }),
+    );
   };
 
   const handleBlockClose = useCallback((blockNumber: number) => {
@@ -64,6 +71,7 @@ export const WorkspacePage = () => {
                 number={block.number}
                 index={block.index}
                 position={block.position}
+                initialDimensions={block.initialDimensions}
                 onBlockClick={handleBlockClick}
                 updateBlockIndex={updateBlockIndexes}
                 onBlockClose={handleBlockClose}
