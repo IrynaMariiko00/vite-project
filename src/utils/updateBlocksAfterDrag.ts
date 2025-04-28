@@ -7,13 +7,17 @@ export const updateBlocksAfterDrag = (
   const currentBlock = blocks.find((b) => b.id === id);
   if (!currentBlock) return blocks;
 
+  const maxZIndex = Math.max(...blocks.map((b) => b.zIndex ?? 1));
+
   return blocks.map((b) => {
     if (b.id === id) {
-      return { ...b, zIndex: 5 };
+      return { ...b, zIndex: maxZIndex + 1 };
     }
-    if (b.id !== id && (b.zIndex ?? 1) >= 5) {
-      return { ...b, zIndex: (b.zIndex ?? 1) - 1 };
+
+    if ((b.zIndex ?? 1) > maxZIndex) {
+      return b;
     }
+
     return b;
   });
 };

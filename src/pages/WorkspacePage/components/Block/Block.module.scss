@@ -10,7 +10,7 @@
   box-shadow: $box-shadow;
   cursor: grab;
   position: absolute;
-  
+
   &__top {
     height: 25.5px;
     width: 100%;
@@ -58,12 +58,13 @@
     }
   }
 
-  .resizeHandle {
+  .resizeHandleBottomRight {
     position: absolute;
-    right: 5px;
-    bottom: 5px;
+    right: 0;
+    bottom: 0;
     width: 10px;
     height: 10px;
+    margin: 2px;
     background-color: #ccc;
     cursor: se-resize;
     border-radius: 50%;

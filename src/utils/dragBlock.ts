@@ -13,18 +13,34 @@ export const dragBlock = (
 
   let startX = e.clientX;
   let startY = e.clientY;
+  const step = 10; // крок сітки 10 пікселів
+
+  // Початкові координати
+  let prevX = 0;
+  let prevY = 0;
 
   const onMouseMove = (e: MouseEvent) => {
-    const newX = startX - e.clientX;
-    const newY = startY - e.clientY;
+    const deltaX = e.clientX - startX;
+    const deltaY = e.clientY - startY;
 
-    startX = e.clientX;
-    startY = e.clientY;
+    // Округлення зміщення до найближчого кроку
+    const snappedX = Math.round(deltaX / step) * step;
+    const snappedY = Math.round(deltaY / step) * step;
 
-    setPosition((prev) => ({
-      topPos: prev.topPos - newY,
-      leftPos: prev.leftPos - newX,
-    }));
+    // Якщо нове положення відрізняється від попереднього, оновлюємо позицію
+    if (snappedX !== prevX || snappedY !== prevY) {
+      prevX = snappedX;
+      prevY = snappedY;
+
+      // Оновлення позиції без затримок
+      setPosition((prev) => ({
+        topPos: prev.topPos + snappedY, // рух по вертикалі
+        leftPos: prev.leftPos + snappedX, // рух по горизонталі
+      }));
+
+      startX = e.clientX;
+      startY = e.clientY;
+    }
   };
 
   const onMouseUp = () => {

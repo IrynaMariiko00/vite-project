@@ -1,75 +1,60 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 export const useResize = (
   initialWidth: number,
   initialHeight: number,
-  setDimensions: React.Dispatch<
-    React.SetStateAction<{ width: number; height: number }>
-  >,
+  onResizeEnd: (newWidth: number, newHeight: number) => void,
 ) => {
-  const [dimensions, setLocalDimensions] = useState({
+  const [isResizing, setIsResizing] = useState(false);
+  const [dimensions, setDimensions] = useState({
     width: initialWidth,
     height: initialHeight,
   });
 
-  // Реф для контейнера, щоб отримати доступ до елемента DOM
-  const resizeRef = useRef<HTMLDivElement>(null);
+  const handleResize = (e: React.MouseEvent, direction: string) => {
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const initialWidth = dimensions.width;
+    const initialHeight = dimensions.height;
 
-  const resizeState = useRef({
-    isResizing: false,
-    startCoords: { x: 0, y: 0 },
-    startDimensions: { width: initialWidth, height: initialHeight },
-    resizeFactor: 1.1,
-  });
+    setIsResizing(true);
 
-  useEffect(() => {
-    setLocalDimensions({ width: initialWidth, height: initialHeight });
-  }, [initialWidth, initialHeight]);
+    const mouseMoveHandler = (moveEvent: MouseEvent) => {
+      const deltaX = moveEvent.clientX - startX;
+      const deltaY = moveEvent.clientY - startY;
 
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      resizeState.current.isResizing = true;
-      resizeState.current.startCoords = { x: e.clientX, y: e.clientY };
-      resizeState.current.startDimensions = { ...dimensions };
+      if (direction === "right") {
+        setDimensions((prev) => ({
+          ...prev,
+          width: Math.max(150, initialWidth + deltaX),
+        }));
+      } else if (direction === "bottom") {
+        setDimensions((prev) => ({
+          ...prev,
+          height: Math.max(50, initialHeight + deltaY),
+        }));
+      } else if (direction === "bottom-right") {
+        setDimensions(() => ({
+          width: Math.max(150, initialWidth + deltaX),
+          height: Math.max(50, initialHeight + deltaY),
+        }));
+      }
+    };
 
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-    },
-    [dimensions],
-  );
+    const mouseUpHandler = () => {
+      document.removeEventListener("mousemove", mouseMoveHandler);
+      document.removeEventListener("mouseup", mouseUpHandler);
+      onResizeEnd(dimensions.width, dimensions.height);
+      setIsResizing(false);
+    };
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!resizeState.current.isResizing) return;
-
-    const dx = e.clientX - resizeState.current.startCoords.x;
-    const dy = e.clientY - resizeState.current.startCoords.y;
-
-    const newWidth = Math.max(
-      100,
-      resizeState.current.startDimensions.width +
-        dx * resizeState.current.resizeFactor,
-    );
-    const newHeight = Math.max(
-      50,
-      resizeState.current.startDimensions.height +
-        dy * resizeState.current.resizeFactor,
-    );
-
-    // Оновлюємо локальний стан та передаємо його назад
-    setLocalDimensions({ width: newWidth, height: newHeight });
-    setDimensions({ width: newWidth, height: newHeight });
-  }, []);
-
-  const handleMouseUp = useCallback(() => {
-    resizeState.current.isResizing = false;
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
-  }, [handleMouseMove]);
+    document.addEventListener("mousemove", mouseMoveHandler);
+    document.addEventListener("mouseup", mouseUpHandler);
+  };
 
   return {
+    isResizing,
     dimensions,
-    resizeRef,
-    handleMouseDown,
+    handleResize,
   };
 };

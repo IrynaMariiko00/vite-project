@@ -32,6 +32,8 @@ const WorkspacePage = () => {
                 id={block.id}
                 top={block.top}
                 left={block.left}
+                width={block.width}
+                height={block.height}
               />
             ))}
           </div>

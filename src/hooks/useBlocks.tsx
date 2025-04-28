@@ -6,6 +6,7 @@ interface BlocksContextType {
   blocks: BlockType[];
   setBlocks: React.Dispatch<React.SetStateAction<BlockType[]>>;
   deleteBlock: (id: number) => void;
+  resizeBlock: (id: number, width: number, height: number) => void;
 }
 
 interface BlocksProviderProps {
@@ -29,12 +30,21 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({ children }) => {
     setBlocks((prevBlocks) => prevBlocks.filter((block) => block.id !== id));
   };
 
+  const resizeBlock = (id: number, width: number, height: number) => {
+    setBlocks((prevBlocks) => {
+      return prevBlocks.map((block) =>
+        block.id === id ? { ...block, width, height } : block,
+      );
+    });
+  };
+
   return (
     <BlocksContext.Provider
       value={{
         blocks,
         setBlocks,
         deleteBlock,
+        resizeBlock,
       }}
     >
       {children}
