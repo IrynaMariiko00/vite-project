@@ -77,13 +77,5 @@ This feature displays real-time Bitcoin transactions using the Blockchain WebSoc
 - **WebSocket API**: For establishing a real-time connection for the Bitcoin Transaction Tracker.
 - **CSS Modules / SCSS**: For scoped styling and responsive design.
 
-## Installation
-
-To run the project locally:
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-
 ## Design
 This project was designed with the help of Figma. The design focuses on an intuitive and user-friendly interface for managing the interactive workspace and viewing Bitcoin transactions in real-time.
