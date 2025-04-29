@@ -65,16 +65,19 @@
   }
 
   &__blocks {
+    position: relative;
+    min-height: 400px;
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, #e0e0e0 1px, transparent 1px),
+      linear-gradient(180deg, #e0e0e0 1px, transparent 1px);
+    background-size: 4px 4px;
     border-radius: 8px;
     box-shadow: $box-shadow;
     margin-top: 48px;
     display: flex;
-    width: 100%;
     gap: 102px 112px;
     flex-wrap: wrap;
-    position: relative;
-    min-height: 400px;
-    overflow: hidden;
 
     @include on-mobile {
       gap: 42px 32px;

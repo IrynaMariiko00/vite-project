@@ -7,6 +7,11 @@
   overflow-x: hidden;
   border-radius: 8px;
   box-shadow: $box-shadow;
+
+  @include on-mobile {
+    width: 300px;
+    height: 500px;
+  }
 }
 
 .tracker-table {
@@ -19,9 +24,9 @@
   table-layout: fixed;
 
   @include on-mobile {
-    width: 239px;
-    height: 175px;
     border-radius: 4px;
+    width: 300px;
+    height: 500px;
   }
 }
 
@@ -46,8 +51,16 @@
   text-align: left;
 
   @include small-text-desktop;
+
+  @include on-mobile {
+    @include small-text-mobile;
+  }
 }
 
 .text {
   @include primary-text-desktop;
+
+  @include on-mobile {
+    @include primary-text-mobile;
+  }
 }

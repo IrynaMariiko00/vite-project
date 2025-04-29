@@ -8,12 +8,6 @@
     }
   }
   
-  @mixin on-tablet {
-    @media (max-width: ($desktop-min-width - 1px)) {
-      @content;
-    }
-  }
-  
   @mixin on-mobile {
     @media (max-width: ($tablet-min-width - 1px)) {
       @content;

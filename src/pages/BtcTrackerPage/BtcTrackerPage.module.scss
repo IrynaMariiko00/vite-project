@@ -1,59 +1,73 @@
 @import "../../styles/main.scss";
 
 .main {
-    @include description-wrapper-desktop;
+  @include description-wrapper-desktop;
 
-    @include on-mobile {
-        @include description-wrapper-mobile;
-    }
+  @include on-mobile {
+    @include description-wrapper-mobile;
+  }
 }
 
 .description {
-    @include primary-text-desktop;
+  @include primary-text-desktop;
 
-    color: $gray-text-color;
+  color: $gray-text-color;
 
-    @include on-mobile {
-        display: none;
-    }
+  @include on-mobile {
+    display: none;
+  }
 }
 
 .task-wrapper {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 31px;
-    padding: 38px 0 38px 115px;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 31px;
+  padding: 38px 0 38px 115px;
+  align-items: center;
+  gap: 30px;
 
-    @include on-mobile {
-        flex-direction: column;
-        margin: 0;
-        padding: 0;
-        gap: 18px;
-    }
+  @media (max-width: 1280px) {
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    gap: 18px;
+  }
 }
 
 .buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 46px;
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
 
-    @include on-mobile {
-        gap: 33px;
-        flex-direction: row;
-    }
+  @media (min-width: 700px) and (max-width: 1280px) {
+    gap: 33px;
+    flex-direction: row;
+    margin-top: 80px;
+  }
+
+  @include on-mobile {
+    flex-direction: row;
+  }
 }
 
 .table-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  @include on-mobile {
+    gap: 15px;
+  }
 }
 
 .text {
-    @include primary-text-desktop;
+  @include primary-text-desktop;
 
-    color: $gray-text-color;
-    justify-content: center;
-    display: flex;
+  color: $gray-text-color;
+  justify-content: center;
+  display: flex;
+
+  @include on-mobile {
+    @include primary-text-mobile;
+  }
 }

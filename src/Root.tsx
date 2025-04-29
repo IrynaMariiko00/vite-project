@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { App } from "./App";
-import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 
 const HomePage = lazy(() => import("./pages/Homepage/HomePage"));
 const WorkspacePage = lazy(() => import("./pages/WorkspacePage/WorkspacePage"));
@@ -20,8 +19,6 @@ export const Root = () => {
             <Route path="workspace" element={<WorkspacePage />} />
 
             <Route path="btc-tracker" element={<BtcTrackerPage />} />
-
-            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </Suspense>

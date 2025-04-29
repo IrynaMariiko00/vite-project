@@ -2,8 +2,9 @@ import { Block } from "./components/Block";
 import { Features2 } from "./components/Features-task-2";
 import { BlocksProvider, useBlocks } from "../../hooks/useBlocks";
 import styles from "./WorkspacePage.module.scss";
+import React from "react";
 
-const WorkspacePage = () => {
+const WorkspacePageContent = () => {
   const { blocks, handleReset } = useBlocks();
 
   return (
@@ -44,6 +45,8 @@ const WorkspacePage = () => {
     </main>
   );
 };
+
+const WorkspacePage = React.memo(WorkspacePageContent);
 
 export default () => (
   <BlocksProvider>
