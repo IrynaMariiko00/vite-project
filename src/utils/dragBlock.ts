@@ -1,4 +1,3 @@
-// utils/dragBlock.ts
 import { MutableRefObject } from "react";
 
 export const dragBlock = (
@@ -18,20 +17,17 @@ export const dragBlock = (
   // Початкові координати
   let prevX = 0;
   let prevY = 0;
+  let snappedX = 0; // оголошення змінної для збереження координат
 
   const onMouseMove = (e: MouseEvent) => {
     const deltaX = e.clientX - startX;
     const deltaY = e.clientY - startY;
 
     // Округлення зміщення до найближчого кроку
-    const snappedX = Math.round(deltaX / step) * step;
+    snappedX = Math.round(deltaX / step) * step;
     const snappedY = Math.round(deltaY / step) * step;
 
-    // Якщо нове положення відрізняється від попереднього, оновлюємо позицію
     if (snappedX !== prevX || snappedY !== prevY) {
-      prevX = snappedX;
-      prevY = snappedY;
-
       // Оновлення позиції без затримок
       setPosition((prev) => ({
         topPos: prev.topPos + snappedY, // рух по вертикалі
@@ -40,6 +36,8 @@ export const dragBlock = (
 
       startX = e.clientX;
       startY = e.clientY;
+      prevX = snappedX; // оновлюємо prevX та prevY після зміщення
+      prevY = snappedY;
     }
   };
 

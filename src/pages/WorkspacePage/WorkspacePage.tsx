@@ -4,7 +4,7 @@ import { BlocksProvider, useBlocks } from "../../hooks/useBlocks";
 import styles from "./WorkspacePage.module.scss";
 
 const WorkspacePage = () => {
-  const { blocks } = useBlocks();
+  const { blocks, handleReset } = useBlocks();
 
   return (
     <main>
@@ -23,7 +23,9 @@ const WorkspacePage = () => {
 
       <section className={styles["task-container"]}>
         <div className={styles.workspace}>
-          <button className={styles.workspace__button}>Reset</button>
+          <button className={styles.workspace__button} onClick={handleReset}>
+            Reset
+          </button>
 
           <div className={styles.workspace__blocks}>
             {blocks.map((block) => (

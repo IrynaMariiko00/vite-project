@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import styles from "./Block.module.scss";
 import { BlockType } from "../../../../types/block-type";
-import { handleMouseDown } from "../../../../utils/dragBlock";
 import { useBlocks } from "../../../../hooks/useBlocks";
-import { useResize } from "../../../../hooks/useResize"; // Імпортуємо хук
+import { useResize } from "../../../../hooks/useResize";
 import { updateBlocksAfterDrag } from "../../../../utils/updateBlocksAfterDrag";
 
 export const Block: React.FC<BlockType> = ({
@@ -14,7 +13,6 @@ export const Block: React.FC<BlockType> = ({
   height = 100,
 }) => {
   const blockRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ topPos: top, leftPos: left });
   const { blocks, setBlocks, deleteBlock } = useBlocks();
 
   const { isResizing, dimensions, handleResize } = useResize(
@@ -31,41 +29,79 @@ export const Block: React.FC<BlockType> = ({
     },
   );
 
-  // Обробка завершення перетягування
-  const handleDragEnd = () => {
-    setBlocks(
-      (prevBlocks) => updateBlocksAfterDrag(prevBlocks, id), // Передаємо isResizing
-    );
-  };
-  // Обробка видалення блоку
   const handleDelete = () => {
     deleteBlock(id);
   };
 
-  // Обробка перетягування блоку, лише коли не йде зміна розміру
   const handleMouseDownForDrag = (e: React.MouseEvent) => {
     if (!isResizing) {
-      handleMouseDown(e, blockRef, setPosition, handleDragEnd);
+      const block = blockRef.current;
+      if (!block) return;
+
+      if (
+        (e.target as HTMLElement).closest(
+          `.${styles.resizeHandleBottomRight}`,
+        ) ||
+        (e.target as HTMLElement).closest(`.${styles.block__btn}`)
+      ) {
+        return;
+      }
+
+      e.preventDefault();
+
+      setBlocks((prevBlocks) => updateBlocksAfterDrag(prevBlocks, id));
+
+      const startCoords = {
+        x: e.clientX - left,
+        y: e.clientY - top,
+      };
+
+      const step = 10;
+
+      const handleMouseMove = (e: MouseEvent) => {
+        const newX = e.clientX - startCoords.x;
+        const newY = e.clientY - startCoords.y;
+
+        const snappedX = Math.round(newX / step) * step;
+        const snappedY = Math.round(newY / step) * step;
+
+        setBlocks((prevBlocks) =>
+          prevBlocks.map((block) =>
+            block.id === id
+              ? { ...block, left: snappedX, top: snappedY }
+              : block,
+          ),
+        );
+      };
+
+      const handleMouseUp = () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
     }
   };
 
-  // Функція для активації ресайзу
   const handleResizeStart = (e: React.MouseEvent, direction: string) => {
-    e.stopPropagation(); // Перешкоджаємо поширенню події, щоб не активувалось перетягування
-    handleResize(e, direction); // Викликаємо функцію для зміни розміру
+    e.stopPropagation();
+    handleResize(e, direction);
   };
+
+  const currentBlock = blocks.find((b) => b.id === id);
 
   return (
     <div
       ref={blockRef}
-      onMouseDown={handleMouseDownForDrag} // Викликаємо нову функцію для перетягування
+      onMouseDown={handleMouseDownForDrag}
       className={styles.block}
       style={{
-        top: `${position.topPos}px`,
-        left: `${position.leftPos}px`,
-        width: `${dimensions.width}px`, // Використовуємо значення з хука
-        height: `${dimensions.height}px`, // Використовуємо значення з хука
-        zIndex: blocks.find((b) => b.id === id)?.zIndex ?? 1,
+        top: `${currentBlock?.top ?? top}px`,
+        left: `${currentBlock?.left ?? left}px`,
+        width: `${dimensions.width}px`,
+        height: `${dimensions.height}px`,
+        zIndex: currentBlock?.zIndex ?? 1,
       }}
     >
       <div className={styles.block__top}>
@@ -81,7 +117,7 @@ export const Block: React.FC<BlockType> = ({
 
       <div
         className={styles.resizeHandleBottomRight}
-        onMouseDown={(e) => handleResizeStart(e, "bottom-right")} // Викликаємо нову функцію для ресайзу
+        onMouseDown={(e) => handleResizeStart(e, "bottom-right")}
       ></div>
     </div>
   );

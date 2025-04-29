@@ -1,4 +1,10 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useCallback,
+} from "react";
 import { BlockType } from "../types/block-type";
 import { initialBlocks } from "../constants/initialBlocks";
 
@@ -7,6 +13,12 @@ interface BlocksContextType {
   setBlocks: React.Dispatch<React.SetStateAction<BlockType[]>>;
   deleteBlock: (id: number) => void;
   resizeBlock: (id: number, width: number, height: number) => void;
+  updateBlockPositionAndSize: (
+    blockNumber: number,
+    newPosition: { left: number; top: number },
+    newDimensions: { width: number; height: number },
+  ) => void;
+  handleReset: () => void;
 }
 
 interface BlocksProviderProps {
@@ -38,6 +50,27 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({ children }) => {
     });
   };
 
+  const updateBlockPositionAndSize = useCallback(
+    (blockNumber: number, newPosition: { left: number; top: number }) => {
+      setBlocks((prevBlocks) => {
+        const updatedBlocks = prevBlocks.map((block) =>
+          block.id === blockNumber
+            ? {
+                ...block,
+                top: newPosition.top,
+                left: newPosition.left,
+              }
+            : block,
+        );
+        return updatedBlocks;
+      });
+    },
+    [],
+  );
+  const handleReset = () => {
+    setBlocks(initialBlocks);
+  };
+
   return (
     <BlocksContext.Provider
       value={{
@@ -45,6 +78,8 @@ export const BlocksProvider: React.FC<BlocksProviderProps> = ({ children }) => {
         setBlocks,
         deleteBlock,
         resizeBlock,
+        updateBlockPositionAndSize,
+        handleReset,
       }}
     >
       {children}
