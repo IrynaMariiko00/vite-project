@@ -128,7 +128,7 @@ export const Block: React.FC<BlockType> = React.memo(
           <h2 className={styles.block__name}>Block {id}</h2>
           <button className={styles.block__btn} onClick={handleDelete}>
             <img
-              src="public/img/close.png"
+              src="/vite-project/img/close.png"
               alt="close"
               className={styles.block__icon}
             />

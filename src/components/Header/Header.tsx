@@ -9,7 +9,7 @@ export const Header = () => {
         <div className={styles.logo}>
           <Link to="/">
             <img
-              src="public/img/logo.png"
+              src="/vite-project/img/logo.png"
               alt="Test task"
               className={styles.logo__img}
             />
