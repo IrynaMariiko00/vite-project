@@ -26,7 +26,7 @@ export const Footer = () => {
           <>
             <div className={styles.author}>
               <img
-                src="public/img/author.png"
+                src="/vite-project/img/author.png"
                 alt="Made by Iryna"
                 className={styles.author__img}
               />
