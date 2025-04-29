@@ -86,11 +86,13 @@ export const Block: React.FC<BlockType> = React.memo(
           const snappedY = Math.round(newY / step) * step;
 
           setBlocks((prevBlocks) => {
-            return prevBlocks.map((block) =>
+            const updatedBlocks = prevBlocks.map((block) =>
               block.id === id
                 ? { ...block, left: snappedX, top: snappedY }
                 : block,
             );
+            localStorage.setItem("blocks", JSON.stringify(updatedBlocks));
+            return updatedBlocks;
           });
         };
 
