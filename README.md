@@ -1,5 +1,7 @@
 # React + TypeScript + Vite - Interactive Workspace & Bitcoin Transactions Tracker
 
+[DEMO](https://irynamariiko00.github.io/vite-project/#/)
+
 This project implements a single-page application (SPA) with two main tasks:
 
 1. **Interactive Workspace** with draggable, resizable blocks.
@@ -77,9 +79,9 @@ This feature displays real-time Bitcoin transactions using the Blockchain WebSoc
 - **WebSocket API**: For establishing a real-time connection for the Bitcoin Transaction Tracker.
 - **CSS Modules / SCSS**: For scoped styling and responsive design.
 
+
 ## Design
 This project was designed with the help of Figma. The design focuses on an intuitive and user-friendly interface for managing the interactive workspace and viewing Bitcoin transactions in real-time.
 
 [Figma](https://www.figma.com/design/Gq6YgRxlMMAmnQ9fyzCDbZ/Untitled?node-id=0-1&p=f&t=qcOhaPtUDQkyOMIY-0) 
 
-[DEMO](https://irynamariiko00.github.io/vite-project/#/)
